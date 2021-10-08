@@ -1,0 +1,4 @@
+Name: open-api
+Host: 0.0.0.0
+Port: 8888
+DataSourceName: root:123456@(127.0.0.1:3306)/sz20?charset=utf8
