@@ -2,16 +2,17 @@ package main
 
 import "fmt"
 
+// 选择排序
 // 编写函数selectSort 完成排序
 // 注释
 func SelectSort(arr *[6]int) {
 	// 1.假设 arr[0] 是最大值
-	for j := 0; j < len(arr)-1; j++ {
+	for j := 0; j < len(arr) - 1; j++ {
 		max := arr[j]
 		maxIndex := j
 		// 2.遍历后面 1----[len(arr) - 1] 比较
 		for i := j + 1; i < len(arr); i++ {
-			if max < arr[i] { //找到真正的最大值
+			if max < arr[i] {
 				max = arr[i]
 				maxIndex = i
 			}
@@ -20,9 +21,9 @@ func SelectSort(arr *[6]int) {
 		if maxIndex != j {
 			arr[j], arr[maxIndex] = arr[maxIndex], arr[j]
 		}
-		fmt.Printf("第%d次 %v\n", j+1, arr)
+		fmt.Println(arr)
 	}
-}
+	}
 
 func main() {
 	// 定义一个数组
