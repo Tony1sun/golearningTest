@@ -1,4 +1,4 @@
-package day3
+package sparsearray
 
 import "testing"
 
