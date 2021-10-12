@@ -27,7 +27,7 @@ func InsertSort(arr *[7]int) {
 	// insertIndex = 2 - 1
 
 	// // 从大到小
-	// for insertVal >= 0 && arr[insertIndex] < insertVal {
+	// for insertIndex >= 0 && arr[insertIndex] < insertVal {
 	// 	arr[insertIndex+1] = arr[insertIndex] // 后移
 	// 	insertIndex--
 	// }
@@ -43,7 +43,7 @@ func InsertSort(arr *[7]int) {
 	// insertIndex = 3 - 1
 
 	// // 从大到小
-	// for insertVal >= 0 && arr[insertIndex] < insertVal {
+	// for insertIndex >= 0 && arr[insertIndex] < insertVal {
 	// 	arr[insertIndex+1] = arr[insertIndex] // 后移
 	// 	insertIndex--
 	// }
