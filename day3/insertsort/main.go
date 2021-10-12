@@ -10,9 +10,9 @@ func InsertSort(arr *[7]int) {
 		insertIndex := i - 1
 
 		// 从大到小
-		for insertIndex >= 0 && arr[insertIndex] < insertVal {
-			arr[insertIndex+1] = arr[insertIndex] // 后移
-			insertIndex--
+		for insertIndex >= 0 && arr[insertIndex] < insertVal { //insertVal大于insertIndex，那insertIndex就往前移一位
+			arr[insertIndex+1] = arr[insertIndex] //数据后移
+			insertIndex--                         //往前移动
 		}
 		//插入
 		if insertIndex+1 != i {
