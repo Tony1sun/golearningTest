@@ -52,7 +52,7 @@ func ShowBoy(first *Boy) {
 	// 创建一个指针，帮助遍历
 	curBoy := first
 	for {
-		fmt.Printf("小孩编号=%d\n ->", curBoy.No)
+		fmt.Printf("小孩编号=%d->", curBoy.No)
 		//退出的条件
 		if curBoy.Next == first {
 			// 显示到链表最后的小孩
@@ -72,14 +72,45 @@ func ShowBoy(first *Boy) {
 //2. 在环形链表中留下最后一个人
 func PlayGame(first *Boy, startNo int, countNum int) {
 
-	// 空链表单独处理
+	// 1.空链表单独处理
 	if first.Next == nil {
 		fmt.Println("空链表")
 		return
 	}
 	// 判断 startNo <= 小孩的总数
-	
-	// 定义需要辅助的指针，帮助我们删除小孩
+	// 2.定义需要辅助的指针，帮助我们删除小孩
+	tail := first
+	// 3.让tail执行环形链表的最后一个小孩
+	// 因为tail 在删除小孩时需要使用到
+	for {
+		if tail.Next == first { // 说明tail到了最后的小孩
+			break
+		}
+		tail = tail.Next
+	}
+	//4. 让first 移动到 startNo【后面删除小孩，就以first为准】
+	for i := 1; i <= startNo-1; i++ {
+		first = first.Next
+		tail = tail.Next
+	}
+	fmt.Println()
+	//5. 开始数countNum，然后就删除first指向的小孩
+	for {
+		// 开始数countNum-1次
+		for i := 1; i <= countNum-1; i++ {
+			first = first.Next
+			tail = tail.Next
+		}
+		fmt.Printf("小孩编号为%d 出圈 \n", first.No)
+		// 删除first指向的小孩
+		first = first.Next
+		tail.Next = first
+		// 判断如果 tail = first,圈中只有一个小孩
+		if tail == first {
+			break
+		}
+	}
+	fmt.Printf("最后出圈的小孩编号为%d \n", first.No)
 }
 
 func main() {
@@ -87,4 +118,5 @@ func main() {
 	first := AddBoy(5)
 	// 显示
 	ShowBoy(first)
+	PlayGame(first, 2, 3)
 }
