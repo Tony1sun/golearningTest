@@ -11,7 +11,7 @@ func QuickSort(left int, right int, array *[9]int) {
 	r := right
 	// pivot 是中轴，支点
 	pivot := array[(left+right)/2]
-	temp := 0
+	// temp := 0
 	// 将比pivot小的数放到左边
 	// 比pivot大的数放到右边
 	for l < r {
@@ -28,9 +28,10 @@ func QuickSort(left int, right int, array *[9]int) {
 			break
 		}
 		// 交换
-		temp = array[l] // 把 大于pivot的值 放到temp
-		array[l] = array[r]
-		array[r] = temp
+		// temp = array[l]     // 把大于pivot的值 放到temp
+		// array[l] = array[r] // 把小于pivot的值 放到 array[l]
+		// array[r] = temp	// 把大于pivot的值 放到array[r]
+		array[l], array[r] = array[r], array[l]
 		//优化
 		if array[l] == pivot {
 			r--
