@@ -11,16 +11,16 @@ func QuickSort(left int, right int, array *[9]int) {
 	r := right
 	// pivot 是中轴，支点
 	pivot := array[(left+right)/2]
-	// temp := 0
+	temp := 0
 	// 将比pivot小的数放到左边
 	// 比pivot大的数放到右边
 	for l < r {
 		// 先从pivot的左边找到大于等于pivot的值
-		for array[l] > pivot {
+		for array[l] < pivot {
 			l++
 		}
 		// 先从pivot的右边找到小于等于pivot的值
-		for array[r] < pivot {
+		for array[r] > pivot {
 			r--
 		}
 		// l >= r 表明本次分解任务完成
@@ -28,10 +28,10 @@ func QuickSort(left int, right int, array *[9]int) {
 			break
 		}
 		// 交换
-		// temp = array[l]     // 把大于pivot的值 放到temp
-		// array[l] = array[r] // 把小于pivot的值 放到 array[l]
-		// array[r] = temp	// 把大于pivot的值 放到array[r]
-		array[l], array[r] = array[r], array[l]
+		temp = array[l]     // 把大于pivot的值 放到temp
+		array[l] = array[r] // 把小于pivot的值 放到 array[l]
+		array[r] = temp     // 把大于pivot的值 放到array[r]
+		// array[l], array[r] = array[r], array[l]
 		//优化
 		if array[l] == pivot {
 			r--
