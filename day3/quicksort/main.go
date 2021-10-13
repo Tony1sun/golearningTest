@@ -6,7 +6,7 @@ import "fmt"
 // 1. left表示数组左边的下标
 // 2. right 表示数组左边的下标
 // 3. array 表示要排序的数组
-func QuickSort(left int, right int, array *[6]int) {
+func QuickSort(left int, right int, array *[9]int) {
 	l := left
 	r := right
 	// pivot 是中轴，支点
@@ -16,11 +16,11 @@ func QuickSort(left int, right int, array *[6]int) {
 	// 比pivot大的数放到右边
 	for l < r {
 		// 先从pivot的左边找到大于等于pivot的值
-		for array[l] < pivot {
+		for array[l] > pivot {
 			l++
 		}
 		// 先从pivot的右边找到小于等于pivot的值
-		for array[r] > pivot {
+		for array[r] < pivot {
 			r--
 		}
 		// l >= r 表明本次分解任务完成
@@ -55,7 +55,7 @@ func QuickSort(left int, right int, array *[6]int) {
 }
 
 func main() {
-	arr := [6]int{-9, 78, 0, 23, -567, 70}
+	arr := [9]int{-9, 78, 0, 23, -567, 70, 123, 90, -23}
 	fmt.Println("原始数组:", arr)
 	QuickSort(0, len(arr)-1, &arr)
 	fmt.Println("main函数")
