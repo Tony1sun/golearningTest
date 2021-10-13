@@ -39,11 +39,24 @@ func QuickSort(left int, right int, array *[6]int) {
 			l++
 		}
 	}
-
+	// 如果 1 == r, 再移动下
+	if l == r {
+		l++
+		r--
+	}
+	// 向左递归
+	if left < r {
+		QuickSort(left, r, array)
+	}
+	// 向右递归
+	if right > l {
+		QuickSort(l, right, array)
+	}
 }
 
 func main() {
 	arr := [6]int{-9, 78, 0, 23, -567, 70}
+	fmt.Println("原始数组:", arr)
 	QuickSort(0, len(arr)-1, &arr)
 	fmt.Println("main函数")
 	fmt.Println(arr)
