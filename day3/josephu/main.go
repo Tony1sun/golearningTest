@@ -74,13 +74,13 @@ func PlayGame(first *Boy, startNo int, countNum int) {
 
 	// 1.空链表单独处理
 	if first.Next == nil {
-		fmt.Println("空链表")
+		fmt.Println("就一个小孩玩游戏(空链表),玩不了!")
 		return
 	}
 	// 判断 startNo <= 小孩的总数
 	// 2.定义需要辅助的指针，帮助我们删除小孩
 	tail := first
-	// 3.让tail执行环形链表的最后一个小孩
+	// 3.让tail指向环形链表的最后一个小孩
 	// 因为tail 在删除小孩时需要使用到
 	for {
 		if tail.Next == first { // 说明tail到了最后的小孩
@@ -93,6 +93,7 @@ func PlayGame(first *Boy, startNo int, countNum int) {
 		first = first.Next
 		tail = tail.Next
 	}
+
 	fmt.Println()
 	//5. 开始数countNum，然后就删除first指向的小孩
 	for {
