@@ -37,6 +37,20 @@ func (this *Stack) List() {
 	}
 }
 
+//出栈
+func (this *Stack) Pop() (val int, err error) {
+	// 判断栈是否为空
+	if this.Top == -1 {
+		fmt.Println("stack empty")
+		return 0, errors.New("stack empty")
+	}
+	//先取值，再this.Top--
+	val = this.arr[this.Top]
+	this.Top--
+	return val, nil
+
+}
+
 func main() {
 	stack := &Stack{
 		MaxTop: 5,  //表示最多存放5个数到栈中
@@ -51,4 +65,20 @@ func main() {
 	stack.Push(6)
 	//显示
 	stack.List()
+
+	val, _ := stack.Pop()
+	fmt.Println("出栈val=", val)
+	stack.List()
+
+	fmt.Println()
+
+	val, _ = stack.Pop()
+	val, _ = stack.Pop()
+	val, _ = stack.Pop()
+	val, _ = stack.Pop()
+	val, _ = stack.Pop()
+	fmt.Println("出栈val=", val)
+
+	stack.List()
+
 }
