@@ -51,7 +51,7 @@ func (this *Stack) List() {
 }
 
 // 判断一个字符是不是一个运算符[+, -, *, /]
-func (this *Stack) IsOper(val int) {
+func (this *Stack) IsOper(val int) bool {
 	if val == 42 || val == 43 || val == 45 || val == 47 {
 		return true
 	} else {
@@ -106,9 +106,20 @@ func main() {
 	for {
 		ch := exp[index : index+1] // 字符串
 		//ch ==> "+"===> 43
-		temp := ([]byte(ch)[0]) //字符对应的ASCII码
-		if operStack.IsOper(temp) {
+		temp := ([]byte(ch)[0])     //字符对应的ASCII码
+		if operStack.IsOper(temp) { // 说明是符号
 
+			//如果operStack是一个空栈，直接入栈
+			if operStack.Top == -1 { //空栈
+				operStack.Push(temp)
+			} else {
+				// 如果发现operStack栈顶的运算符的优先级大于等于当前准备入栈的运算符的优先级,
+				// 就从符号栈pop出，并从数栈也pop两个数，进行运算，运算后的结果再重新入栈到数
+				// 栈，符号再入符号栈
+				
+			}
+		} else { //说明是数
+			numStack.Push(temp)
 		}
 	}
 }
