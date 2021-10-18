@@ -101,7 +101,7 @@ func main() {
 		MaxTop: 20,
 		Top:    -1,
 	}
-	exp := "3+3*6-4"
+	exp := "300+3*6-4"
 	// 定义一个index，帮煮扫描exp
 	index := 0
 	//为了配合运算，定义变量
@@ -109,6 +109,7 @@ func main() {
 	num2 := 0
 	oper := 0
 	result := 0
+	keepNum := ""
 
 	for {
 		ch := exp[index : index+1] // 字符串
@@ -138,9 +139,26 @@ func main() {
 				}
 			}
 		} else { //说明是数
-			val, _ := strconv.ParseInt(ch, 10, 64)
-			numStack.Push(int(val))
+			//处理多位数的思路
+			//1,定义一个变量keepNum string,做拼接
+			keepNum += ch
+
+			//2,每次要向index的后面字符测试一下，看看是不是运算符，然后处理
+
+			//如果已经到表达式最后，直接将
+			if index == len(exp)-1 {
+				val, _ := strconv.ParseInt(keepNum, 10, 64)
+				numStack.Push(int(val))
+			} else {
+				//向index后面测试看看是不是运算符
+				if operStack.IsOper(int([]byte(exp[index+1 : index+2])[0])) {
+					val, _ := strconv.ParseInt(keepNum, 10, 64)
+					numStack.Push(int(val))
+					keepNum = ""
+				}
+			}
 		}
+
 		//继续扫描
 		//先判读index是否已经扫描到计算表达式的最后
 		if index+1 == len(exp) {
