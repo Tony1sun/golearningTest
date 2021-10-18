@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"strconv"
 )
 
 //使用数组来模拟一个栈的使用
@@ -100,13 +101,19 @@ func main() {
 		MaxTop: 20,
 		Top:    -1,
 	}
-	exp := "3+2*6-2"
+	exp := "3+3*6-4"
 	// 定义一个index，帮煮扫描exp
 	index := 0
+	//为了配合运算，定义变量
+	num1 := 0
+	num2 := 0
+	oper := 0
+	result := 0
+
 	for {
 		ch := exp[index : index+1] // 字符串
 		//ch ==> "+"===> 43
-		temp := ([]byte(ch)[0])     //字符对应的ASCII码
+		temp := int([]byte(ch)[0])  //字符对应的ASCII码
 		if operStack.IsOper(temp) { // 说明是符号
 
 			//如果operStack是一个空栈，直接入栈
@@ -115,11 +122,46 @@ func main() {
 			} else {
 				// 如果发现operStack栈顶的运算符的优先级大于等于当前准备入栈的运算符的优先级,
 				// 就从符号栈pop出，并从数栈也pop两个数，进行运算，运算后的结果再重新入栈到数
-				// 栈，符号再入符号栈
-				
+				// 栈，当前符号栈再入符号栈
+				if operStack.Priority(operStack.arr[operStack.Top]) >=
+					operStack.Priority(temp) {
+					num1, _ = numStack.Pop()
+					num2, _ = numStack.Pop()
+					oper, _ = operStack.Pop()
+					result = operStack.Cal(num1, num2, oper)
+					//将计算结果重新入数栈
+					numStack.Push(result)
+					//将当前的符号压入符号栈
+					operStack.Push(temp)
+				} else {
+					operStack.Push(temp)
+				}
 			}
 		} else { //说明是数
-			numStack.Push(temp)
+			val, _ := strconv.ParseInt(ch, 10, 64)
+			numStack.Push(int(val))
 		}
+		//继续扫描
+		//先判读index是否已经扫描到计算表达式的最后
+		if index+1 == len(exp) {
+			break
+		}
+		index++
 	}
+	//如果扫描表达式完毕，依次从符号栈取出符号，然后从数栈取出两个数，
+	//运算后的结果，入数栈，直到符号栈为空
+	for {
+		if operStack.Top == -1 {
+			break //退出条件
+		}
+		num1, _ = numStack.Pop()
+		num2, _ = numStack.Pop()
+		oper, _ = operStack.Pop()
+		result = operStack.Cal(num1, num2, oper)
+		//将计算结果重新入数栈
+		numStack.Push(result)
+	}
+	//如果我们的算法没有问题，而且表达式也是正确的，则结果就是numStack最后数
+	res, _ := numStack.Pop()
+	fmt.Printf("表达式%s = %v", exp, res)
 }
