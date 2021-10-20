@@ -102,7 +102,7 @@ func main() {
 		Top:    -1,
 	}
 	exp := "300+3*6-4"
-	// 定义一个index，帮煮扫描exp
+	// 定义一个index，帮助扫描exp
 	index := 0
 	//为了配合运算，定义变量
 	num1 := 0

@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-func InsertSort(arr *[7]int) {
+func InsertSort(arr []int) {
 
 	for i := 1; i < len(arr); i++ {
 		// 完成第一次，给第二个元素找到合适的位置，并插入
@@ -19,7 +19,7 @@ func InsertSort(arr *[7]int) {
 			arr[insertIndex+1] = insertVal
 
 		}
-		fmt.Printf("第%d次插入后 %v\n", i, *arr)
+		fmt.Printf("第%d次插入后 %v\n", i, arr)
 	}
 
 	// // 完成第2次，给第3个元素找到合适的位置，并插入
@@ -55,9 +55,9 @@ func InsertSort(arr *[7]int) {
 }
 
 func main() {
-	arr := [7]int{23, 0, 12, 56, 34, -1, 55}
+	arr := []int{23, 0, 12, 56, 34, -1, 55}
 	fmt.Println("原始数组是:", arr)
-	InsertSort(&arr)
+	InsertSort(arr)
 	fmt.Println("main函数")
 	fmt.Println(arr)
 }
