@@ -18,13 +18,13 @@ func SetWay(myMap *[8][7]int, i int, j int) bool {
 			//假设这个点可以通,但是需要探测，上下左右
 			// 换一个策略，下右上左
 			myMap[i][j] = 2
-			if SetWay(myMap, i-1, j) { //上
-				return true
-			} else if SetWay(myMap, i+1, j) { //下
-				return true
-			} else if SetWay(myMap, i, j-1) { //左
+			if SetWay(myMap, i+1, j) { //下
 				return true
 			} else if SetWay(myMap, i, j+1) { //右
+				return true
+			} else if SetWay(myMap, i-1, j) { //上
+				return true
+			} else if SetWay(myMap, i, j-1) { //左
 				return true
 			} else { //死路
 				myMap[i][j] = 3
@@ -60,7 +60,8 @@ func main() {
 
 	myMap[3][1] = 1
 	myMap[3][2] = 1
-
+	myMap[1][2] = 1
+	myMap[2][2] = 1
 
 	//输出地图
 	for i := 0; i < 8; i++ {
