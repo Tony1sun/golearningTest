@@ -60,8 +60,8 @@ func main() {
 
 	myMap[3][1] = 1
 	myMap[3][2] = 1
-	myMap[1][2] = 1
-	myMap[2][2] = 1
+	// myMap[1][2] = 1
+	// myMap[2][2] = 1
 
 	//输出地图
 	for i := 0; i < 8; i++ {
