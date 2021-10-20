@@ -2,6 +2,41 @@ package main
 
 import "fmt"
 
+// 老鼠找路
+//myMap *[8][7]int:地图，保证是同一个地图，使用引用传递
+//i,j 表示对地图哪个点进行测试
+func SetWay(myMap *[8][7]int, i int, j int) bool {
+
+	//分析什么情况下，就找到出路
+	//myMap[6][5] == 2
+	if myMap[6][5] == 2 {
+		return true
+	} else {
+		// 说明要继续找
+		if myMap[i][j] == 0 { //如果这个点是可以探测的SetWay
+
+			//假设这个点可以通,但是需要探测，上下左右
+			// 换一个策略，下右上左
+			myMap[i][j] = 2
+			if SetWay(myMap, i-1, j) { //上
+				return true
+			} else if SetWay(myMap, i+1, j) { //下
+				return true
+			} else if SetWay(myMap, i, j-1) { //左
+				return true
+			} else if SetWay(myMap, i, j+1) { //右
+				return true
+			} else { //死路
+				myMap[i][j] = 3
+				return false
+			}
+
+		} else { // 说明这个点不能探测，为1，是墙
+			return false
+		}
+	}
+}
+
 func main() {
 	//先创建一个二维数组，模拟迷宫
 	//规则
@@ -23,7 +58,20 @@ func main() {
 		myMap[i][6] = 1
 	}
 
+	myMap[3][1] = 1
+	myMap[3][2] = 1
+
+
 	//输出地图
+	for i := 0; i < 8; i++ {
+		for j := 0; j < 7; j++ {
+			fmt.Print(myMap[i][j], " ")
+		}
+		fmt.Println()
+	}
+
+	SetWay(&myMap, 1, 1)
+	fmt.Println("探测完毕的地图:")
 	for i := 0; i < 8; i++ {
 		for j := 0; j < 7; j++ {
 			fmt.Print(myMap[i][j], " ")
