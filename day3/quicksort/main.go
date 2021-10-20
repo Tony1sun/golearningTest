@@ -1,12 +1,16 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
 
 // 快速排序
 // 1. left表示数组左边的下标
 // 2. right 表示数组左边的下标
 // 3. array 表示要排序的数组
-func QuickSort(left int, right int, array *[9]int) {
+func QuickSort(left int, right int, array *[80000]int) {
 	l := left
 	r := right
 	// pivot 是中轴，支点
@@ -56,10 +60,17 @@ func QuickSort(left int, right int, array *[9]int) {
 }
 
 func main() {
-	arr := [9]int{-9, 78, 0, 23, -567, 70, 123, 90, -23}
-	fmt.Println("原始数组:", arr)
+	// arr := [9]int{-9, 78, 0, 23, -567, 70, 123, 90, -23}
+	// fmt.Println("原始数组:", arr)
+	var arr [80000]int
+	for i := 0; i < 80000; i++ {
+		arr[i] = rand.Intn(900000)
+	}
+	start := time.Now().Unix()
 	QuickSort(0, len(arr)-1, &arr)
-	fmt.Println("main函数")
-	fmt.Println(arr)
+	end := time.Now().Unix()
+	fmt.Printf("选择排序耗时=%d秒", end-start)
+	// fmt.Println("main函数")
+	// fmt.Println(arr)
 
 }
