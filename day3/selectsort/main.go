@@ -22,10 +22,15 @@ func SelectSort(arr *[800000]int) {
 			}
 		}
 		// 交换
+		// 如果最大值的下标不等于j
 		if maxIndex != j {
 			arr[j], arr[maxIndex] = arr[maxIndex], arr[j]
 		}
+<<<<<<< HEAD
 		// fmt.Println(arr)
+=======
+		fmt.Println(arr)
+>>>>>>> 5d2309dc22abbacb187ac00bf4eb365ad274179b
 	}
 }
 
