@@ -1,8 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math/rand"
+	"time"
+)
 
-func InsertSort(arr *[7]int) {
+func InsertSort(arr *[80000]int) {
 
 	for i := 1; i < len(arr); i++ {
 		// 完成第一次，给第二个元素找到合适的位置，并插入
@@ -19,7 +23,7 @@ func InsertSort(arr *[7]int) {
 			arr[insertIndex+1] = insertVal
 
 		}
-		fmt.Printf("第%d次插入后 %v\n", i, *arr)
+		// fmt.Printf("第%d次插入后 %v\n", i, *arr)
 	}
 
 	// // 完成第2次，给第3个元素找到合适的位置，并插入
@@ -55,9 +59,18 @@ func InsertSort(arr *[7]int) {
 }
 
 func main() {
-	arr := [7]int{23, 0, 12, 56, 34, -1, 55}
-	fmt.Println("原始数组是:", arr)
+	// arr := [80000]int{23, 0, 12, 56, 34, -1, 55}
+	// fmt.Println("原始数组是:", arr)
+	var arr [80000]int
+	for i := 0; i < 80000; i++ {
+		arr[i] = rand.Intn(900000)
+	}
+	start := time.Now().Unix()
+
 	InsertSort(&arr)
-	fmt.Println("main函数")
-	fmt.Println(arr)
+	end := time.Now().Unix()
+	fmt.Printf("选择排序耗时=%d秒", end-start)
+
+	// fmt.Println("main函数")
+	// fmt.Println(arr)
 }
