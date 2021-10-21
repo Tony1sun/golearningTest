@@ -181,7 +181,7 @@ func main() {
 			fmt.Scanln(&id)
 			emp := hashtable.FindById(id)
 			if emp == nil {
-				fmt.Println("id=%d 的雇员不存在\n", id)
+				fmt.Printf("id=%d 的雇员不存在\n", id)
 			} else {
 				//显示雇员信息
 				emp.ShowMe()
