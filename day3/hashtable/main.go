@@ -105,6 +105,11 @@ func (this *EmpLink) FindById(id int) *Emp {
 	return nil
 }
 
+//根据id删除对应的雇员，如果没有就返回nil
+func (this *EmpLink) DeleteByI(id int) *Emp {
+
+}
+
 //编写一个散列方法
 func (this *HashTable) HashFun(id int) int {
 	return id % 7 // 得到一个值，就是对应的链表的下标
@@ -115,6 +120,13 @@ func (this *HashTable) FindById(id int) *Emp {
 	// 使用散列函数，确定将该雇员在哪个链表
 	linkNo := this.HashFun(id)
 	return this.LinkArr[linkNo].FindById(id)
+}
+
+//删除方法
+func (this *HashTable) DeleteById(id int) *Emp {
+	// 使用散列函数，确定将该雇员在哪个链表
+	linkNo := this.HashFun(id)
+	return this.LinkArr[linkNo].DeleteById(id)
 }
 
 func main() {
