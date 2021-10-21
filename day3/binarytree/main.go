@@ -19,16 +19,51 @@ func PreOrder(node *Hero) {
 	}
 }
 
+//前序遍历[先输出左子树，然后再输出root结点，然后再输出root的右子树]
+func InfixOrder(node *Hero) {
+	if node != nil {
+		InfixOrder(node.Left)
+		fmt.Printf("no=%d name=%s\n", node.No, node.Name)
+		InfixOrder(node.Right)
+
+	}
+}
+
+//后序遍历[先输出左子树，然后再输出root结点，然后再输出root的右子树]
+func PostOrder(node *Hero) {
+	if node != nil {
+		PostOrder(node.Left)
+		PostOrder(node.Right)
+		fmt.Printf("no=%d name=%s\n", node.No, node.Name)
+
+	}
+}
+
 func main() {
 	//构建一个二叉树
 	root := &Hero{
 		No:   1,
 		Name: "宋江",
 	}
+
 	left1 := &Hero{
 		No:   2,
 		Name: "无用",
 	}
+
+	node10 := &Hero{
+		No:   10,
+		Name: "tom",
+	}
+
+	node12 := &Hero{
+		No:   12,
+		Name: "jack",
+	}
+
+	left1.Left = node10
+	left1.Right = node12
+
 	right1 := &Hero{
 		No:   3,
 		Name: "卢俊义",
@@ -44,5 +79,7 @@ func main() {
 
 	right1.Right = right2
 
-	PreOrder(root)
+	// PreOrder(root)
+	// InfixOrder(root)
+	PostOrder(root)
 }
