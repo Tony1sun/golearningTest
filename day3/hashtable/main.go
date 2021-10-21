@@ -106,8 +106,26 @@ func (this *EmpLink) FindById(id int) *Emp {
 }
 
 //根据id删除对应的雇员，如果没有就返回nil
-func (this *EmpLink) DeleteByI(id int) *Emp {
+func (this *EmpLink) DeleteById(id int) *Emp {
+	cur := this.Head
+	flag := false
 
+	for {
+		if cur == nil {
+			break
+		} else if cur.Id == id {
+			//说明找到要删除的结点
+			flag = true
+			break
+		}
+		cur = cur.Next
+	}
+	if flag { //找到，删除
+		cur.Next = cur.Next.Next
+	} else {
+		fmt.Println("sorry,要删除的id不存在")
+	}
+	return nil
 }
 
 //编写一个散列方法
@@ -123,10 +141,10 @@ func (this *HashTable) FindById(id int) *Emp {
 }
 
 //删除方法
-func (this *HashTable) DeleteById(id int) *Emp {
+func (this *HashTable) DeleteById(id int) {
 	// 使用散列函数，确定将该雇员在哪个链表
 	linkNo := this.HashFun(id)
-	return this.LinkArr[linkNo].DeleteById(id)
+	this.LinkArr[linkNo].DeleteById(id)
 }
 
 func main() {
@@ -141,6 +159,7 @@ func main() {
 		fmt.Println("input 添加雇员")
 		fmt.Println("show 显示雇员")
 		fmt.Println("find 查找雇员")
+		fmt.Println("del 删除雇员")
 		fmt.Println("exit 退出系统")
 		fmt.Println("请输入选项:")
 		fmt.Scanln(&key)
@@ -167,6 +186,16 @@ func main() {
 				//显示雇员信息
 				emp.ShowMe()
 			}
+		case "del":
+			fmt.Println("请输入id号:")
+			fmt.Scanln(&id)
+			hashtable.DeleteById(id)
+			// if emp == nil {
+			// 	fmt.Println("id=%d 的雇员不存在\n", id)
+			// } else {
+			// 	// 显示雇员信息
+			// 	fmt.Println("删除成功")
+			// }
 		case "exit":
 			os.Exit(0)
 		default:
