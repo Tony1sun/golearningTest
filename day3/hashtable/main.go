@@ -12,6 +12,10 @@ type Emp struct {
 	Next *Emp
 }
 
+func (this *Emp) ShowMe() {
+	fmt.Printf("链表%d 找到该雇员 %d \n", this.Id%7, this.Id)
+}
+
 //定义EmpLink
 // 不带表头，第一个结点就存放雇员
 type EmpLink struct {
@@ -87,9 +91,30 @@ func (this *HashTable) ShowAll() {
 	}
 }
 
+//根据id查找对应的雇员,如果没有就返回nil
+func (this *EmpLink) FindById(id int) *Emp {
+	cur := this.Head
+	for {
+		if cur != nil && cur.Id == id {
+			return cur
+		} else if cur == nil {
+			break
+		}
+		cur = cur.Next
+	}
+	return nil
+}
+
 //编写一个散列方法
 func (this *HashTable) HashFun(id int) int {
 	return id % 7 // 得到一个值，就是对应的链表的下标
+}
+
+//查找方法
+func (this *HashTable) FindById(id int) *Emp {
+	// 使用散列函数，确定将该雇员在哪个链表
+	linkNo := this.HashFun(id)
+	return this.LinkArr[linkNo].FindById(id)
 }
 
 func main() {
@@ -120,6 +145,16 @@ func main() {
 			hashtable.Insert(emp)
 		case "show":
 			hashtable.ShowAll()
+		case "find":
+			fmt.Println("请输入id号:")
+			fmt.Scanln(&id)
+			emp := hashtable.FindById(id)
+			if emp == nil {
+				fmt.Println("id=%d 的雇员不存在\n", id)
+			} else {
+				//显示雇员信息
+				emp.ShowMe()
+			}
 		case "exit":
 			os.Exit(0)
 		default:
