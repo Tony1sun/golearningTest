@@ -1,5 +1,10 @@
 package main
 
+import (
+	"fmt"
+	"os"
+)
+
 //定义emp
 type Emp struct {
 	Id   int
@@ -43,18 +48,44 @@ func (this *EmpLink) Insert(emp *Emp) {
 	emp.Next = cur
 }
 
+//显示链表的信息
+func (this *EmpLink) ShowLink(no int) {
+	if this.Head == nil {
+		fmt.Printf("链表%d 为空\n", no)
+		return
+	}
+	//遍历当前的链表，并显示数据
+	cur := this.Head //辅助指针
+	for {
+		if cur != nil {
+			fmt.Printf("链表%d 雇员id=%d 名字=%s", no, cur.Id, cur.Name)
+			cur = cur.Next
+		} else {
+			break
+		}
+	}
+	fmt.Println() // 换行
+}
+
 //定义hashtable，含有一个链表数组
 type HashTable struct {
 	LinkArr [7]EmpLink
 }
 
 //给HashTable 编写Insert 雇员的方法
-// func (this *HashTable) Insert(emp *Emp) {
-// 	// 使用散列函数，确定将该雇员添加到哪个链表
-// 	linkNo := this.HashFun(emp.Id)
-// 	// 使用对应的链表添加
-// 	this.LinkArr[linkNo].Insert(emp * Emp)
-// }
+func (this *HashTable) Insert(emp *Emp) {
+	// 使用散列函数，确定将该雇员添加到哪个链表
+	linkNo := this.HashFun(emp.Id)
+	// 使用对应的链表添加
+	this.LinkArr[linkNo].Insert(emp)
+}
+
+//编写方法，显示hashtable的所有雇员
+func (this *HashTable) ShowAll() {
+	for i := 0; i < len(this.LinkArr); i++ {
+		this.LinkArr[i].ShowLink(i)
+	}
+}
 
 //编写一个散列方法
 func (this *HashTable) HashFun(id int) int {
@@ -63,4 +94,36 @@ func (this *HashTable) HashFun(id int) int {
 
 func main() {
 
+	key := ""
+	id := 0
+	name := ""
+
+	var hashtable HashTable
+	for {
+		fmt.Println("====雇员系统菜单====")
+		fmt.Println("input 添加雇员")
+		fmt.Println("show 显示雇员")
+		fmt.Println("find 查找雇员")
+		fmt.Println("exit 退出系统")
+		fmt.Println("请输入选项:")
+		fmt.Scanln(&key)
+		switch key {
+		case "input":
+			fmt.Println("输入雇员id")
+			fmt.Scanln(&id)
+			fmt.Println("输入雇员name")
+			fmt.Scanln(&name)
+			emp := &Emp{
+				Id:   id,
+				Name: name,
+			}
+			hashtable.Insert(emp)
+		case "show":
+			hashtable.ShowAll()
+		case "exit":
+			os.Exit(0)
+		default:
+			fmt.Println("输入错误")
+		}
+	}
 }
