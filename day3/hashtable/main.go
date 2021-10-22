@@ -9,6 +9,7 @@ import (
 type Emp struct {
 	Id   int
 	Name string
+	Pre  *Emp
 	Next *Emp
 }
 
@@ -110,16 +111,23 @@ func (this *EmpLink) DeleteById(id int) *Emp {
 	cur := this.Head
 	flag := false
 
+	// 如果只有一个结点
+	if cur.Id == id { //只有一个结点
+		this.Head = cur.Next
+	}
+
+	// 找到要删除的结点的no，和temp的下一个结点的no比较
 	for {
-		if cur == nil {
+		if cur.Next == nil { //说明到链表最后
 			break
-		} else if cur.Id == id {
+		} else if cur.Next.Id == id || cur.Id == id {
 			//说明找到要删除的结点
 			flag = true
 			break
 		}
 		cur = cur.Next
 	}
+
 	if flag { //找到，删除
 		cur.Next = cur.Next.Next
 	} else {
@@ -190,12 +198,6 @@ func main() {
 			fmt.Println("请输入id号:")
 			fmt.Scanln(&id)
 			hashtable.DeleteById(id)
-			// if emp == nil {
-			// 	fmt.Println("id=%d 的雇员不存在\n", id)
-			// } else {
-			// 	// 显示雇员信息
-			// 	fmt.Println("删除成功")
-			// }
 		case "exit":
 			os.Exit(0)
 		default:
