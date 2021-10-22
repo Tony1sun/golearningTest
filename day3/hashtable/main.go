@@ -114,6 +114,7 @@ func (this *EmpLink) DeleteById(id int) *Emp {
 	// 如果只有一个结点
 	if cur.Id == id { //只有一个结点
 		this.Head = cur.Next
+		return nil
 	}
 
 	// 找到要删除的结点的no，和temp的下一个结点的no比较
