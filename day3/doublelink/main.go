@@ -89,10 +89,7 @@ func DelHerNode(head *HeroNode, id int) {
 			temp.next.pre = temp
 		}
 	} else {
-
 		fmt.Println("sorry, 要删除的id不存在!")
-
-		fmt.Println("sorry,要删除的id不存在")
 	}
 
 }
