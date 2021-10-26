@@ -1,4 +1,4 @@
-module day3
+module example
 
 go 1.16
 
