@@ -14,6 +14,7 @@ func (*add) do(a, b int) int {
 	return a + b
 }
 
+
 // 减
 type reduce struct{}
 

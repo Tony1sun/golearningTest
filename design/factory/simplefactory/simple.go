@@ -7,9 +7,16 @@ type API interface {
 }
 
 func NewAPI(t int) API {
-	if t == 1 {
+	// if t == 1 {
+	// 	return &hiAPI{}
+	// } else if t == 2 {
+	// 	return &helloAPI{}
+	// }
+	// return nil
+	switch t {
+	case 1:
 		return &hiAPI{}
-	} else if t == 2 {
+	case 2:
 		return &helloAPI{}
 	}
 	return nil
@@ -21,8 +28,7 @@ func (*hiAPI) Say(name string) string {
 	return fmt.Sprintf("Hi, %s", name)
 }
 
-
-type helloAPI struct {}
+type helloAPI struct{}
 
 func (*helloAPI) Say(name string) string {
 	return fmt.Sprintf("Hello, %s", name)
