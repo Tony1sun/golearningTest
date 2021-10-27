@@ -38,3 +38,4 @@ func (n *NewsOffice) notifyAllCustomers() {
 		customer.update()
 	}
 }
+

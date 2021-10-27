@@ -20,8 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="35e374b2-3d06-49ad-9517-72973bd31567" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../go-todolist/go.mod" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../go-micro-study-notes" beforeDir="false" afterPath="$PROJECT_DIR$/../go-micro-study-notes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +55,7 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
     <property name="settings.editor.selected.configurable" value="go.sdk" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -75,10 +75,14 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="884" y="274" key="FileChooserDialogImpl" timestamp="1632380517935">
+    <state x="896" y="450" key="#GOROOT" timestamp="1635153101288">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="884" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1632380517935" />
+    <state x="896" y="450" key="#GOROOT/0.0.1920.1040@0.0.1920.1040" timestamp="1635153101288" />
+    <state x="884" y="274" key="FileChooserDialogImpl" timestamp="1635153158417">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="884" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1635153158417" />
     <state x="605" y="164" key="SettingsEditor" timestamp="1632452329656">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
