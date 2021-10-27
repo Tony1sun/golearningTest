@@ -9,8 +9,8 @@ import (
 
 // Context 上下文
 type Context struct {
-	Tel string //手机号
-	Text string //短信内容
+	Tel        string //手机号
+	Text       string //短信内容
 	TempleteID string //短信模板ID
 }
 
@@ -77,7 +77,7 @@ var stateManagerInstance *StateManager
 type StateManager struct {
 	// 当前使用的服务提供商类型
 	// 默认aliyun
-	currentProviderTpe ProviderType
+	currentProviderType ProviderType
 
 	// 当前使用的服务提供商实例
 	// 默认aliyun
@@ -91,7 +91,18 @@ type StateManager struct {
 func (m *StateManager) initState(duration time.Duration) {
 	// 初始化
 	m.setStateDuration = duration
-	m.setS
+	m.setState(time.Now())
+
+	// 定时器更新状态
+	go func() {
+		for {
+			// 每一段时间后根据回调的发送成功率 计算得到当前应该使用的厂商
+			select {
+			case t := <-time.NewTicker(m.setStateDuration).C:
+				m.setState(t)
+			}
+		}
+	}()
 }
 
 // setState 设置状态
@@ -103,9 +114,9 @@ func (m *StateManager) setState(t time.Time) {
 		ProviderTypeTencent,
 		ProviderTypeYunpian,
 	}
-	m.currentProviderTpe = ProviderTypeArray[rand.Intn(len(ProviderTypeArray))]
+	m.currentProviderType = ProviderTypeArray[rand.Intn(len(ProviderTypeArray))]
 
-	switch m.currentProviderTpe {
+	switch m.currentProviderType {
 	case ProviderTypeAliyun:
 		m.currentProvider = &ServiceProviderAliyun{}
 	case ProviderTypeTencent:
@@ -116,4 +127,40 @@ func (m *StateManager) setState(t time.Time) {
 		panic("无效的短信服务商")
 	}
 	fmt.Printf("时间：%s| 变更短信发送厂商为: %s \n", t.Format("2006-01-02 15:04:05"), m.currentProviderType)
+}
+
+// 获取当前状态
+func (m *StateManager) getState() SmsServiceInterface {
+	return m.currentProvider
+}
+
+// 获取当前状态
+func GetState() SmsServiceInterface {
+	return stateManagerInstance.getState()
+}
+
+func main() {
+	// 初始化状态管理
+	stateManagerInstance = &StateManager{}
+	stateManagerInstance.initState(300 * time.Millisecond)
+
+	// 模拟发送短信的接口
+	sendSms := func() {
+		// 发送短信
+		GetState().Send(&Context{
+			Tel:        "+8613666668888",
+			Text:       "3232",
+			TempleteID: "TYSHK_01",
+		})
+	}
+	// 模拟用户调用发送短信的接口
+	sendSms()
+	time.Sleep(1 * time.Second)
+	sendSms()
+	time.Sleep(1 * time.Second)
+	sendSms()
+	time.Sleep(1 * time.Second)
+	sendSms()
+	time.Sleep(1 * time.Second)
+	sendSms()
 }
