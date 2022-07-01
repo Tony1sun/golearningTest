@@ -43,9 +43,11 @@ func ExistTagByID(id int) bool {
 	return false
 }
 
-func DeleteTag(id int) bool {
-	db.Where("id = ?", id).Delete(&Tag{})
-	return true
+func DeleteTag(id int) error {
+	if err := db.Where("id = ?", id).Delete(&Tag{}).Error; err != nil {
+		return err
+	}
+	return nil
 }
 
 func AddTag(name string, state int, createdBy string) bool {
@@ -57,9 +59,11 @@ func AddTag(name string, state int, createdBy string) bool {
 	return true
 }
 
-func EditTag(id int, data interface{}) bool {
-	db.Model(&Tag{}).Where("id= ?", id).Updates(data)
-	return true
+func EditTag(id int, data interface{}) error {
+	if err := db.Model(&Tag{}).Where("id= ? AND deleted_on = ? ", id, 0).Updates(data).Error; err != nil {
+		return err
+	}
+	return nil
 }
 
 func (tag *Tag) BeforeCreate(scope *gorm.Scope) error {

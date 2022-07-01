@@ -43,22 +43,12 @@ func ExistTagByID(id int) bool {
 	return false
 }
 
-func DeleteTag(id int) bool {
-	db.Where("id = ?", id).Delete(&Tag{})
-	return true
-}
-
 func AddTag(name string, state int, createdBy string) bool {
 	db.Create(&Tag{
 		Name:      name,
 		State:     state,
 		CreatedBy: createdBy,
 	})
-	return true
-}
-
-func EditTag(id int, data interface{}) bool {
-	db.Model(&Tag{}).Where("id= ?", id).Updates(data)
 	return true
 }
 

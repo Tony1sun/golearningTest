@@ -58,8 +58,8 @@ func AddTag(name string, state int, createdBy string) bool {
 }
 
 func EditTag(id int, data interface{}) bool {
-	db.Model(&Tag{}).Where("id= ?", id).Updates(data)
-	return true
+	db.Model(&Tag{}).Where("id= ? AND deleted_on = ? ", id, 0).Updates(data).Error
+	return nil
 }
 
 func (tag *Tag) BeforeCreate(scope *gorm.Scope) error {

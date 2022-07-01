@@ -1,0 +1,7 @@
+package models
+
+type Article struct {
+	Model
+
+	TagID int `json:"tag_id" gorm:"index"`
+}

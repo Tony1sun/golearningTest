@@ -58,7 +58,7 @@ func AddTag(name string, state int, createdBy string) bool {
 }
 
 func EditTag(id int, data interface{}) bool {
-	db.Model(&Tag{}).Where("id= ?", id).Updates(data)
+	db.Model(&Tag{}).Where("id= ? ", id).Updates(data)
 	return true
 }
 
