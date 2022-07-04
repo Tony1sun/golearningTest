@@ -203,8 +203,7 @@ func DeleteArticle(c *gin.Context) {
 	code := e.INVALID_PARAMS
 	if !valid.HasErrors() {
 		if models.ExistArticleByID(id) {
-			models.DeleteArticle(id)
-			code = e.SUCCESS
+
 		} else {
 			code = e.ERROR_NOT_EXIST_ARTICLE
 		}
@@ -213,9 +212,4 @@ func DeleteArticle(c *gin.Context) {
 			log.Printf("err.key: %s, err.message: %s", err.Key, err.Message)
 		}
 	}
-	c.JSON(http.StatusOK, gin.H{
-		"code": code,
-		"msg":  e.GetMsg(code),
-		"data": make(map[string]string),
-	})
 }
