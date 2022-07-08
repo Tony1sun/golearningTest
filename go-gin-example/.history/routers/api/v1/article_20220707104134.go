@@ -16,8 +16,9 @@ import (
 // @Summary Get a single article
 // @Produce  json
 // @Param id path int true "ID"
-// @Success 200 {string} json "{"code":200,"data":{},"msg":"ok"}"
-// @Router /api/v1/tags/{id} [put]
+// @Success 200 {object} app.Response
+// @Failure 500 {object} app.Response
+// @Router /api/v1/articles/{id} [get]
 func GetArticle(c *gin.Context) {
 	id := com.StrTo(c.Param("id")).MustInt()
 

@@ -16,8 +16,9 @@ import (
 // @Summary Get a single article
 // @Produce  json
 // @Param id path int true "ID"
-// @Success 200 {string} json "{"code":200,"data":{},"msg":"ok"}"
-// @Router /api/v1/tags/{id} [put]
+// @Success 200 {object} app.Response
+// @Failure 500 {object} app.Response
+// @Router /api/v1/articles/{id} [get]
 func GetArticle(c *gin.Context) {
 	id := com.StrTo(c.Param("id")).MustInt()
 
@@ -46,7 +47,14 @@ func GetArticle(c *gin.Context) {
 	})
 }
 
-// 获取多个文章
+// @Summary Get multiple articles
+// @Produce  json
+// @Param tag_id body int false "TagID"
+// @Param state body int false "State"
+// @Param created_by body int false "CreatedBy"
+// @Success 200 {object} app.Response
+// @Failure 500 {object} app.Response
+// @Router /api/v1/articles [get]
 func GetArticles(c *gin.Context) {
 	data := make(map[string]interface{})
 	maps := make(map[string]interface{})
@@ -87,7 +95,17 @@ func GetArticles(c *gin.Context) {
 	})
 }
 
-//新增文章
+// @Summary Add article
+// @Produce  json
+// @Param tag_id body int true "TagID"
+// @Param title body string true "Title"
+// @Param desc body string true "Desc"
+// @Param content body string true "Content"
+// @Param created_by body string true "CreatedBy"
+// @Param state body int true "State"
+// @Success 200 {object} app.Response
+// @Failure 500 {object} app.Response
+// @Router /api/v1/articles [post]
 func AddArticle(c *gin.Context) {
 	tagId := com.StrTo(c.Query("tag_id")).MustInt()
 	title := c.Query("title")

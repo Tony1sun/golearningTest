@@ -1,14 +1,12 @@
 package routers
 
 import (
+	"github.com/gin-gonic/gin"
+	"github.com/swaggo/gin-swagger"
 	"go-gin-example/middleware/jwt"
 	"go-gin-example/pkg/setting"
 	"go-gin-example/routers/api"
 	v1 "go-gin-example/routers/api/v1"
-
-	"github.com/gin-gonic/gin"
-	swaggerFiles "github.com/swaggo/files"
-	"github.com/swaggo/gin-swagger"
 )
 
 func InitRouter() *gin.Engine {

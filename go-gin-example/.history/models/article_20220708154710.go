@@ -85,6 +85,5 @@ func (article *Article) BeforeUpdate(scope *gorm.Scope) error {
 
 func CleanAllArticle() bool {
 	db.Unscoped().Where("deleted_on != ? ", 0).Delete(&Article{})
-
 	return true
 }

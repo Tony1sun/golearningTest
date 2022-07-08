@@ -16,6 +16,9 @@ import (
 // @Summary Get a single article
 // @Produce  json
 // @Param id path int true "ID"
+// @Param name query string true "name"
+// @Param state query int false "State"
+// @Param modified_by query string true "ModifiedBy"
 // @Success 200 {string} json "{"code":200,"data":{},"msg":"ok"}"
 // @Router /api/v1/tags/{id} [put]
 func GetArticle(c *gin.Context) {

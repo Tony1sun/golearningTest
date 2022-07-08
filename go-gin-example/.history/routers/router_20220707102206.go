@@ -5,10 +5,8 @@ import (
 	"go-gin-example/pkg/setting"
 	"go-gin-example/routers/api"
 	v1 "go-gin-example/routers/api/v1"
-
+	github.com/swaggo/gin-swagger
 	"github.com/gin-gonic/gin"
-	swaggerFiles "github.com/swaggo/files"
-	"github.com/swaggo/gin-swagger"
 )
 
 func InitRouter() *gin.Engine {

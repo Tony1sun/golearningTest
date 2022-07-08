@@ -7,7 +7,6 @@ import (
 	v1 "go-gin-example/routers/api/v1"
 
 	"github.com/gin-gonic/gin"
-	swaggerFiles "github.com/swaggo/files"
 	"github.com/swaggo/gin-swagger"
 )
 
