@@ -2,7 +2,6 @@ package logging
 
 import (
 	"fmt"
-	"go-gin-example/pkg/file"
 	"log"
 	"os"
 	"path/filepath"

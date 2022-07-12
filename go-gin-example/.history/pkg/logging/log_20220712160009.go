@@ -2,7 +2,6 @@ package logging
 
 import (
 	"fmt"
-	"go-gin-example/pkg/file"
 	"log"
 	"os"
 	"path/filepath"
@@ -33,7 +32,8 @@ const (
 func Setup() {
 	filePath := getLogFilePath()
 	fileName := getLogFileName()
-	F, err := file.MustOpen(fileName, filePath)
+	F = openLogFile(filePath)
+
 	logger = log.New(F, DefaultPrefix, log.LstdFlags)
 }
 

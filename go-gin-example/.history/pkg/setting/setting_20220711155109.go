@@ -82,5 +82,5 @@ func Setup() {
 	err = Cfg.Section("database").MapTo(DatabaseSetting)
 	if err != nil {
 		log.Fatalf("Cfg.MapTo DatabaseSetting err: %v", err)
-	}
+	}=
 }

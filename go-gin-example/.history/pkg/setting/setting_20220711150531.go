@@ -27,7 +27,7 @@ type App struct {
 
 	ImagePrefixUrl string
 	ImageSavePath  string
-	ImageMaxSize   int
+	ImageMaxSize   string
 	ImageAllowExts []string
 
 	LogSavePath string
@@ -56,31 +56,37 @@ type DataBase struct {
 	TablePrefix string
 }
 
-var DatabaseSetting = &DataBase{}
-
-func Setup() {
-	Cfg, err := ini.Load("conf/app.ini")
+func init() {
+	var err error
+	Cfg, err = ini.Load("conf/app.ini")
 	if err != nil {
 		log.Fatalf("Fail to parse 'conf/app.ini': %v", err)
 	}
+	LoadBase()
+	LoadServer()
+	LoadApp()
+}
 
-	err = Cfg.Section("app").MapTo(AppSetting)
+func LoadBase() {
+	RunMode = Cfg.Section("").Key("RUN_MODE").MustString("debug")
+}
+
+func LoadServer() {
+	sec, err := Cfg.GetSection("server")
 	if err != nil {
-		log.Fatalf("Cfg.MapTo AppSetting err: %v", err)
+		log.Fatalf("Fail to get section 'server': %v", err)
+	}
+	HTTPPort = sec.Key("HTTP_PORT").MustInt(8000)
+	ReadTimeout = time.Duration(sec.Key("READ_TIMEOUT").MustInt(60)) * time.Second
+	WriteTimeout = time.Duration(sec.Key("WRITE_TIMEOUT").MustInt(60)) * time.Second
+}
+
+func LoadApp() {
+	sec, err := Cfg.GetSection("app")
+	if err != nil {
+		log.Fatalf("Fail to get section 'app': %v", err)
 	}
 
-	AppSetting.ImageMaxSize = AppSetting.ImageMaxSize * 1024 * 1024
-
-	err = Cfg.Section("server").MapTo(ServerSetting)
-	if err != nil {
-		log.Fatalf("Cfg.MapTo ServerSetting err: %v", err)
-	}
-
-	ServerSetting.ReadTimeout = ServerSetting.ReadTimeout * time.Second
-	ServerSetting.WriteTimeout = ServerSetting.ReadTimeout * time.Second
-
-	err = Cfg.Section("database").MapTo(DatabaseSetting)
-	if err != nil {
-		log.Fatalf("Cfg.MapTo DatabaseSetting err: %v", err)
-	}
+	JwtSecret = sec.Key("JWT_SECRET").MustString("!@)*#)!@U#@*!@!)")
+	PageSize = sec.Key("PAGE_SIZE").MustInt(10)
 }
