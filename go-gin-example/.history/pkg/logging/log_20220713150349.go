@@ -36,7 +36,6 @@ func Setup() {
 	if err != nil {
 		log.Fatalln(err)
 	}
-
 	logger = log.New(F, DefaultPrefix, log.LstdFlags)
 }
 
